@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ML-Powered Data Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Global Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background: #f0f4f845;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        /* Updated Header Styles with Fixed Background */
+        header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://preview.redd.it/i-made-a-gradient-wallpaper-pack-and-this-is-one-of-the-v0-jlpv3gf20c291.png?width=1080&crop=smart&auto=webp&s=5d1cafcf4d29b9d452f3bf974fef71d8aabfbe8f') no-repeat center center/cover;
+            z-index: -1;
+        }
+        .hero-content {
+            color: #fff;
+            text-align: center;
+            animation: fadeIn 1s ease forwards;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #ff6f61;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* Navigation Styles */
+        nav {
+            background: rgba(255, 255, 255, 0.228);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #f9f9f9;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+        }
+        nav ul li a:hover {
+            color: #ff6f61;
+            transform: scale(1.1);
+        }
+        /* Section Styles */
+        .section {
+            background: #000548;
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .feature-item {
+            background: #f1f1f138;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        /* Demo Section */
+        .demo-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .demo {
+            background: #f0f0f062;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        /* Testimonial Section */
+        .testimonial-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        blockquote {
+            background: #000548;
+            padding: 15px;
+            border-left: 5px solid #cd118b;
+            border-radius: 5px;
+        }
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Download Button Styles */
+        .download-btn {
+            display: inline-block;
+            background: #cc0b75;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f0f4f845;
+            color: #d61bb1;
+            font-size: 0.9rem;
+        }
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>ML‑Powered Data Studio</h1>
+                <p>
+                    Your interactive solution for advanced data management, forecasting, and analytics.
+                </p>
+                <a href="#download" class="cta-button">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Key Features</a></li>
+            <li><a href="#demos">Interactive Demos</a></li>
+            <li><a href="#community-feedback">Community Feedback</a></li>
+            <li><a href="#latest-updates">Latest Updates</a></li>
+            <li><a href="#download">Download</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="overview" class="section">
+            <h2>Overview</h2>
+            <p>
+                The ML‑Powered Data Studio streamlines the data analysis and machine learning workflow with a powerful desktop application.
+                Leveraging modules for file management, custom dashboards, file conversion, forecasting, data cleaning, model comparison,
+                anomaly detection, data integration, summary statistics, and data filtering, it provides data scientists and analysts with
+                an end-to-end solution for extracting actionable insights.
+            </p>
+        </section>
+
+        <section id="features" class="section">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>File & Data Management</h3>
+                    <p>Upload and manage your datasets effortlessly (CSV, Excel, etc.).</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Custom Dashboard</h3>
+                    <p>Create interactive dashboards with a variety of chart options.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>File Converter</h3>
+                    <p>Convert files among formats like CSV, Excel, SQLite, JSON, Parquet, and XML.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Forecasting</h3>
+                    <p>Apply Linear, Polynomial, and ARIMA models for predictive analysis.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Data Cleaning</h3>
+                    <p>Remove duplicates, handle missing data, standardize fields, and manage outliers.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Model & Anomaly Detection</h3>
+                    <p>Compare models and automatically detect anomalies to maintain data integrity.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Data Integration</h3>
+                    <p>Import data seamlessly from SQLite databases and APIs.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Data Summary</h3>
+                    <p>Generate descriptive statistics and comprehensive data summaries.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Data Filter</h3>
+                    <p>Apply custom queries to filter your data for deeper insights.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="demos" class="section">
+            <h2>Interactive Demos</h2>
+            <p>Explore our demos to see the ML‑Powered Data Studio in action:</p>
+            <div class="demo-grid">
+                <div class="demo">
+                    <h3>Demo 1: Data Visualization</h3>
+                    <p>Visualize your data using various chart types and interactive elements.</p>
+                </div>
+                <div class="demo">
+                    <h3>Demo 2: Forecasting & Model Comparison</h3>
+                    <p>Experience predictive modeling and anomaly detection with real datasets.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="community-feedback" class="section">
+            <h2>Community Feedback</h2>
+            <div class="testimonial-grid">
+                <blockquote>
+                    <p>"I suggested adding SQLite integration, and within weeks, the devs made it happen! Best support ever."</p>
+                    <footer>- Alex, Data Engineer</footer>
+                </blockquote>
+                <blockquote>
+                    <p>"Loving the new forecasting tool! Polynomial regression was a much-needed addition!"</p>
+                    <footer>- Priya, Business Analyst</footer>
+                </blockquote>
+            </div>
+        </section>
+
+        <section id="latest-updates" class="section">
+            <h2>Latest Updates</h2>
+            <p>Stay informed about the latest features and enhancements in ML‑Powered Data Studio:</p>
+            <ul>
+                <li><strong>New: Interactive Custom Dashboards</strong> – Easily create personalized dashboards with dynamic visuals.</li>
+                <li><strong>Enhanced: Forecasting Module</strong> – Now supports ARIMA and Polynomial regression models.</li>
+                <li><strong>Improved: Data Cleaning Tools</strong> – Faster and more accurate data validation with smart auto-fixing.</li>
+            </ul>
+        </section>
+
+        <section id="download" class="section">
+            <h2>Download the Project</h2>
+            <p>
+                Download the full desktop application package of ML‑Powered Data Studio and unlock the complete suite of modules.
+            </p>
+            <a href="" class="download-btn">Download Now</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 ML‑Powered Data Studio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav ul li a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Intersection Observer to trigger animations when sections are in view
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                // Pause the animation until the section is in view
+                section.style.animationPlayState = 'paused';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
