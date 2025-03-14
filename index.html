@@ -74,6 +74,14 @@
       transform: scale(1.1);
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
     }
+    /* Navbar Customization */
+    .navbar {
+      transition: background-color 0.3s ease;
+      background-color: rgba(255, 255, 255, 0);
+    }
+    .navbar.scrolled {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
     /* Section Styles */
     .section {
       background: #000548;
@@ -189,7 +197,7 @@
   </header>
 
   <!-- Bootstrap Responsive Navbar with Fixed Position -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(255, 255, 255, 0.228);">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">Data Studio</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -320,8 +328,8 @@
   <!-- Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Smooth scrolling for navigation links
     document.addEventListener('DOMContentLoaded', () => {
-      // Smooth scrolling for navigation links
       document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -331,11 +339,10 @@
           }
         });
       });
-
-      // Intersection Observer to trigger animations when sections are in view
+  
+      // Intersection Observer to trigger section animations
       const sections = document.querySelectorAll('.section');
       const observerOptions = { threshold: 0.2 };
-
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -344,10 +351,19 @@
           }
         });
       }, observerOptions);
-
       sections.forEach(section => {
         section.style.animationPlayState = 'paused';
         observer.observe(section);
+      });
+  
+      // Navbar scroll effect: at top it is transparent, then semi-transparent when scrolling down
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
       });
     });
   </script>
